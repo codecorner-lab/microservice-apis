@@ -75,10 +75,12 @@ entity PaymentService {
     * amount : Decimal
 }
 
-User -- (OrderService)
-OrderService -- (PaymentService)
+User --> OrderService : places order
+OrderService --> PaymentService : processes payment)
 @enduml
 ```
+
+![UML ERD Diagram](images/ERD_Ordering.png "ERD Diagram")
 
 ---
 
@@ -94,6 +96,8 @@ OrderService --> User: Order Confirmation
 @enduml
 ```
 
+![UML Sequence Diagram](images/Sequence_Ordering.png "Sequence Diagram")
+
 ---
 
 #### **3. Class Diagram**
@@ -108,17 +112,23 @@ class User {
 }
 
 class OrderService {
-    + create_order(): Order
-    + get_order(): Order
+    + order_id: int
+    + product: str
+    + quantity: int
+    + create_order(user_id: int): Order
 }
 
 class PaymentService {
+    + payment_id: int
     + process_payment(order_id: int, amount: float): bool
 }
 
-OrderService --> PaymentService
+User --> OrderService : places orders
+OrderService --> PaymentService : requests payments
 @enduml
 ```
+
+![UML Class Diagram](images/Class_Ordering.png "Class Diagram")
 
 ---
 
