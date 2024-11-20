@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  order_service:
+    build:
+      context: .
+      dockerfile: Dockerfile-order-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - payment_service
+
+  payment_service:
+    build:
+      context: .
+      dockerfile: Dockerfile-payment-service
+    ports:
+      - "8001:8001"
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile-tests
+    depends_on:
+      - order_service
+      - payment_service

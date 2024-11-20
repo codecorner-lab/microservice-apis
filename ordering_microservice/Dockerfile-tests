@@ -1,0 +1,27 @@
+# Base image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy dependencies
+COPY requirements.txt requirements.txt
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install testing tools
+RUN pip install pytest pytest-mock httpx
+
+# Copy application files
+COPY order_service.py .
+COPY payment_service.py .
+
+# Copy test files
+COPY tests ./tests
+
+# Set PYTHONPATH
+ENV PYTHONPATH=/app
+
+# Default command for running tests
+CMD ["pytest"]
