@@ -1,4 +1,3 @@
-To create a README/tutorial file for your Python API, you can follow this template:
 
 ---
 
